@@ -51,17 +51,19 @@ put_pieces(board)
 print_board(board)
 
 def move_piece(board, start, end):
+    #Converting start to grid points EX: e2 is (4, 6)
     start_col = col_map[start[0]]
     start_row = 8 - int(start[1])
-
+    #Converting end to grid points EX: e4 is (4, 4)
     end_col = col_map[end[0]]
     end_row = 8 - int(end[1])
-
+    #Moving the pieces from the starting point to the ending point
+    #Replacing the starting points with an "_"
     piece = board[start_row][start_col]
     board[start_row][start_col] = "_ "
     board[end_row][end_col] = piece
 
     print_board(board)
 
-move_piece(board, "e2", "e4")
+move_piece(board, "a2", "d4")
 print_board(board)
