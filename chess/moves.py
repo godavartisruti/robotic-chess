@@ -3,13 +3,12 @@ from chess import board
 from chess.board import col_map
  
 def _piece_can_reach(board, start_row, start_col, end_row, end_col):
-    #pseudo-legal move check (ignores whether it leaves your own king in check)
+
     if board[start_row][start_col] == "_ ":
         return False
     if start_row == end_row and start_col == end_col:
         return False
- 
-    #can't capture your own piece
+
     if board[end_row][end_col] != "_ " and board[end_row][end_col][0] == board[start_row][start_col][0]:
         return False
  
@@ -156,6 +155,7 @@ def _piece_can_reach(board, start_row, start_col, end_row, end_col):
                             return False
             return True
         return False
+    return False
 def is_in_check(board, color):
     #find the king, then see if any enemy piece can reach it
     king_row, king_col = None, None
@@ -208,4 +208,42 @@ def is_Legal(board, start, end):
         return False
  
     return True
- 
+
+def make_move(board, start, end):
+    start_col = col_map[start[0]]
+    start_row = 8 - int(start[1])
+
+    end_col = col_map[end[0]]
+    end_row = 8 - int(end[1])
+
+    board[end_row][end_col] = board[start_row][start_col]
+    board[start_row][start_col] = "_ "
+
+    return board
+
+def get_all_moves(board, color):
+    moves = []
+
+    files = "abcdefgh"
+
+    for r in range(8):
+        for c in range(8):
+
+            piece = board[r][c]
+
+            if piece != "_ " and piece[0] == color:
+
+                start = files[c] + str(8-r)
+
+                for r2 in range(8):
+                    for c2 in range(8):
+
+                        end = files[c2] + str(8-r2)
+
+                        if is_Legal(board, start, end):
+                            moves.append((start, end))
+
+    return moves
+
+
+print(get_all_moves(board.board, "w"))

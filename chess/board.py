@@ -48,7 +48,7 @@ def put_pieces(board):
                 board[x][y] = piece
 
 put_pieces(board)
-print_board(board)
+
 
 def move_piece(board, start, end):
     #Converting start to grid points EX: a2 is (6, 0)
@@ -65,5 +65,5 @@ def move_piece(board, start, end):
 
     print_board(board)
 
-move_piece(board, "a2", "d4")
+
 print_board(board)
